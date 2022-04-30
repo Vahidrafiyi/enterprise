@@ -6,8 +6,12 @@ class News(models.Model):
     title = models.CharField(max_length=64)
     body = models.TextField()
     image = models.ImageField(upload_to='files/images/news')
-    alt = models.CharField(max_length=128)
+    alt = models.CharField(max_length=64, default='alt')
     created_at = jmodels.jDateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = 'News'
+        verbose_name = 'News'
 
     def __str__(self):
         return self.title
@@ -20,7 +24,7 @@ class News(models.Model):
 class Slider(models.Model):
     title = models.CharField(max_length=128)
     image = models.ImageField(upload_to='files/images/sliders')
-    alt = models.CharField(max_length=128)
+    alt = models.CharField(max_length=128, default='alt')
     created_at = jmodels.jDateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -34,7 +38,7 @@ class Slider(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=128)
     image = models.ImageField(upload_to='files/images/products')
-    alt = models.CharField(max_length=128)
+    alt = models.CharField(max_length=128, default='alt')
 
     def __str__(self):
         return self.title
@@ -48,7 +52,7 @@ class Comment(models.Model):
     title = models.CharField(max_length=128)
     body = models.TextField()
     image = models.ImageField(upload_to='files/images/comments')
-    alt = models.CharField(max_length=128)
+    alt = models.CharField(max_length=128, default='alt')
 
     def __str__(self):
         return self.title
@@ -60,7 +64,7 @@ class Comment(models.Model):
 
 class Partner(models.Model):
     image = models.ImageField(upload_to='files/images/partner')
-    alt = models.CharField(max_length=128)
+    alt = models.CharField(max_length=128, default='alt')
 
     def __str__(self):
         return self.alt

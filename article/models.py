@@ -6,7 +6,7 @@ from django_jalali.db import models as jmodels
 class ArticleGroup(models.Model):
     title = models.CharField(max_length=64)
     image = models.ImageField(upload_to='files/images/articles')
-    alt = models.CharField(max_length=64)
+    alt = models.CharField(max_length=64, default='alt')
 
     def __str__(self):
         return self.title
@@ -20,7 +20,7 @@ class Article(models.Model):
     title = models.CharField(max_length=64)
     body = models.TextField()
     image = models.ImageField(upload_to='files/images/articles')
-    alt = models.CharField(max_length=64)
+    alt = models.CharField(max_length=64, default='alt')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     group = models.ForeignKey(ArticleGroup, on_delete=models.CASCADE)
     created_at = jmodels.jDateTimeField(auto_now_add=True)

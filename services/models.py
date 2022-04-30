@@ -6,7 +6,7 @@ class Service(models.Model):
     title = models.CharField(max_length=32)
     body = models.TextField()
     image = models.ImageField(upload_to='files/images/services')
-    alt = models.CharField(max_length=32)
+    alt = models.CharField(max_length=32, default='alt')
 
     def __str__(self):
         return self.title
@@ -20,7 +20,7 @@ class Project(models.Model):
     title = models.CharField(max_length=32)
     body = models.TextField()
     image = models.ImageField(upload_to='files/images/projects')
-    alt = models.CharField(max_length=32)
+    alt = models.CharField(max_length=32, default='alt')
     start_time = jmodels.jDateField()
     end_time = jmodels.jDateField()
     doing_time = jmodels.jDateField()
