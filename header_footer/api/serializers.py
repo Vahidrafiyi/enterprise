@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from header_footer.models import Header, Footer
+from header_footer.models import Header, Footer, SocialMedia
 
 
 class HeaderSerializer(serializers.ModelSerializer):
@@ -12,4 +12,10 @@ class HeaderSerializer(serializers.ModelSerializer):
 class FooterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Footer
+        fields = '__all__'
+
+
+class SocialMediaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocialMedia
         fields = '__all__'

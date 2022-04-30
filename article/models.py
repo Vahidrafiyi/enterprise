@@ -5,7 +5,7 @@ from django_jalali.db import models as jmodels
 
 class ArticleGroup(models.Model):
     title = models.CharField(max_length=64)
-    image = models.ImageField(upload_to='files/images/articles')
+    image = models.ImageField(upload_to='files/images/articles-group')
     alt = models.CharField(max_length=64, default='alt')
 
     def __str__(self):

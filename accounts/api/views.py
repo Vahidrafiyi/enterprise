@@ -8,12 +8,12 @@ from accounts.models import Profile
 class CurrentUserProfileAPI(APIView):
     def get(self, request):
         query = Profile.objects.get(user=request.user)
-        serializer = ProfileSerializer(query)
+        serializer = ProfileSerializer(query, many=True, context={'request':request})
         return Response(serializer.data, status=200)
 
     def patch(self, request):
         query = Profile.objects.get(user=request.user)
-        serializer = ProfileSerializer(query, data=request.data)
+        serializer = ProfileSerializer(query, data=request.data, context={'request':request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=202)

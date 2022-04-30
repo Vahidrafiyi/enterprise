@@ -7,11 +7,11 @@ from article.models import Article, ArticleGroup
 
 class ArticleAPI(APIView):
     def get(self, request, pk):
-        if len(pk) == 0:
+        if len(pk) > 0:
+            query = Article.objects.get(id=pk)
+        elif len(pk) == 0:
             query = Article.objects.all()
-        else:
-            query = Article.objects.get(pk=pk)
-        serializer = ArticleSerializer(query)
+        serializer = ArticleSerializer(query, many=True, context={'request': request})
         return Response(serializer.data, status=200)
 
 
@@ -21,5 +21,5 @@ class ArticlesGroupAPI(APIView):
             query = ArticleGroup.objects.all()
         else:
             query = ArticleGroup.objects.get(pk=pk)
-        serializer = ArticleGroupSerializer(query)
+        serializer = ArticleGroupSerializer(query, many=True, context={'request': request})
         return Response(serializer.data, status=200)

@@ -5,6 +5,9 @@ class SocialMedia(models.Model):
     image = models.ImageField(upload_to='files/images/social-media')
     alt = models.CharField(max_length=64)
 
+    class Meta:
+        verbose_name = 'Social media'
+        verbose_name_plural = 'Social media'
 
 class Footer(models.Model):
     address = models.TextField()
