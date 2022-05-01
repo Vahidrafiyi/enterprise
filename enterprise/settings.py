@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_recursive',
     'django_jalali',
     'rest_auth',
     'dj_rest_auth',
