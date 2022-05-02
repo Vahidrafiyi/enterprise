@@ -6,8 +6,8 @@ from article.models import Article, ArticleGroup
 
 @register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'created_at', 'updated_at')
+    list_display = ('title_fa', 'author', 'created_at', 'updated_at')
 
 @register(ArticleGroup)
 class ArticleGroupAdmin(admin.ModelAdmin):
-    list_display = ('title',)
+    list_display = ('title_fa',)

@@ -4,21 +4,24 @@ from django_jalali.db import models as jmodels
 
 
 class ArticleGroup(models.Model):
-    title = models.CharField(max_length=64)
+    title_fa = models.CharField(max_length=64)
+    title_en = models.CharField(max_length=64, null=True, blank=True)
     image = models.ImageField(upload_to='files/images/articles-group')
     alt = models.CharField(max_length=64, default='alt')
 
     def __str__(self):
-        return self.title
+        return self.title_fa
 
     def save(self, *args, **kwargs):
-        self.alt = self.title
+        self.alt = self.title_fa
         super(ArticleGroup, self).save(*args, **kwargs)
 
 
 class Article(models.Model):
-    title = models.CharField(max_length=64)
-    body = models.TextField()
+    title_fa = models.CharField(max_length=64)
+    title_en = models.CharField(max_length=64, null=True, blank=True)
+    body_fa = models.TextField()
+    body_en = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to='files/images/articles')
     alt = models.CharField(max_length=64, default='alt')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -27,8 +30,8 @@ class Article(models.Model):
     updated_at = jmodels.jDateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return self.title_fa
 
     def save(self, *args, **kwargs):
-        self.alt = self.title
+        self.alt = self.title_fa
         super(Article, self).save(*args, **kwargs)

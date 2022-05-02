@@ -7,10 +7,14 @@ from enterprise.permissions import IsSuperUser
 
 
 # ---------------------------------------USER--------------------------------------------------------------------------------- #
+from enterprise.utils import visit
+
+
 class CurrentUserProfileAPI(APIView):
     def get(self, request):
         query = Profile.objects.get(user=request.user)
         serializer = ProfileSerializer(query, many=True, context={'request': request})
+        visit()
         return Response(serializer.data, status=200)
 
     def patch(self, request):
@@ -29,6 +33,7 @@ class AdminProfileAPI(APIView):
     def get(self, request):
         query = Profile.objects.all()
         serializer = ProfileSerializer(query, many=True)
+        visit()
         return Response(serializer.data, status=200)
 
     def post(self, request):

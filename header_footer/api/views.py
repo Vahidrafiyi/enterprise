@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from enterprise.permissions import IsSuperUser
+from enterprise.utils import visit
 from header_footer.api.serializers import MenuSerializer, LogoSerializer, FooterSerializer, SocialMediaSerializer
 from header_footer.models import Logo, Footer, SocialMedia, Menu
 
@@ -23,6 +24,7 @@ class MenuAPI(APIView):
     def get(self, request):
         query = Menu.objects.filter(parent__isnull=True)
         serializer = MenuSerializer(query, many=True)
+        visit()
         return Response(serializer.data, status=200)
 
 
@@ -42,6 +44,7 @@ class AdminMenuAPI(APIView):
     def get(self, request):
         query = Menu.objects.all()
         serializer = MenuSerializer(query, many=True)
+        visit()
         return Response(serializer.data, status=200)
 
     def post(self, request):
