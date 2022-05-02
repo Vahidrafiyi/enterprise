@@ -6,7 +6,7 @@ from information.api.views import CommentAPI, NewsAPI, PartnerAPI, ProductAPI, S
 urlpatterns = [
     # user
     path('comment/', CommentAPI.as_view()),
-    path('news/', NewsAPI.as_view()),
+    re_path(r'news/(?P<pk>[0-9]*)', NewsAPI.as_view()),
     path('partner/', PartnerAPI.as_view()),
     path('product/', ProductAPI.as_view()),
     path('slider/', SliderAPI.as_view()),

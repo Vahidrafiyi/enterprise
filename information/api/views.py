@@ -12,8 +12,11 @@ from information.models import News, Slider, Partner, Product, Comment
 class NewsAPI(APIView):
     permission_classes = (AllowAny,)
 
-    def get(self, request):
-        query = News.objects.all()
+    def get(self, request, pk):
+        if len(pk) == 0:
+            query = News.objects.all()
+        else:
+            query = News.objects.filter(pk=pk)
         serializer = NewsSerializer(query, many=True, context={'request': request})
         return Response(serializer.data, status=200)
 
