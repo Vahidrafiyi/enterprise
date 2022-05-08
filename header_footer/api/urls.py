@@ -1,12 +1,14 @@
 from django.urls import path, re_path
 
-from header_footer.api.views import FooterAPI, LogoAPI,MenuAPI, AdminSocialMediaAPI, AdminFooterAPI, AdminLogoAPI, AdminMenuAPI
+from header_footer.api.views import FooterAPI, LogoAPI, MenuAPI, AdminSocialMediaAPI, AdminFooterAPI, AdminLogoAPI, \
+    AdminMenuAPI, OnlineUsers
 
 urlpatterns = [
     #user
     path('footer/', FooterAPI.as_view()),
     path('header/', LogoAPI.as_view()),
     path('menu/', MenuAPI.as_view()),
+    path('visit/', OnlineUsers.as_view()),
     #admin
     re_path(r'admin/social-media/$', AdminSocialMediaAPI.as_view()),
     re_path(r'admin/social-media/(?P<pk>[0-9]+)$', AdminSocialMediaAPI.as_view()),

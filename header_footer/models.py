@@ -1,4 +1,9 @@
+import datetime
+from datetime import timedelta
+
 from django.db import models
+from django.utils import timezone
+from django_jalali.db import models as jmodels
 
 
 class SocialMedia(models.Model):
@@ -20,6 +25,8 @@ class Footer(models.Model):
 
     def __str__(self):
         return self.email
+
+
 class Menu(models.Model):
     title_fa = models.CharField(max_length=50)
     title_en = models.CharField(max_length=50, null=True, blank=True)
@@ -41,3 +48,13 @@ class Logo(models.Model):
     def save(self, *args, **kwargs):
         self.logo_alt = self.logo_text_fa
         super(Logo, 'self').save(*args, **kwargs)  # Call the "real" save() method.
+
+
+
+class VisitorInfo(models.Model):
+    ip_address = models.GenericIPAddressField()
+    page_visited = models.TextField()
+    event_date = jmodels.jDateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.ip_address

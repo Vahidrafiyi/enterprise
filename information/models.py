@@ -76,9 +76,4 @@ class Partner(models.Model):
         return self.alt
 
 
-class Visit(models.Model):
-    number = models.PositiveSmallIntegerField(default=0)
-    date = jmodels.jDateField()
 
-    def __str__(self):
-        return str(self.date)

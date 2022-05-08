@@ -1,6 +1,6 @@
 from django.urls import path, re_path
 
-from information.api.views import CommentAPI, NewsAPI, PartnerAPI, ProductAPI, SliderAPI,\
+from information.api.views import CommentAPI, NewsAPI, PartnerAPI, ProductAPI, SliderAPI, \
     AdminNewsAPI, AdminSliderAPI, AdminCommentAPI, AdminPartnerAPI, AdminProductAPI
 
 urlpatterns = [

@@ -10,7 +10,6 @@ from enterprise.permissions import IsSuperUser
 
 
 # ---------------------------------------USER--------------------------------------------------------------------------------- #
-from enterprise.utils import visit
 
 
 class ArticleAPI(APIView):
@@ -22,7 +21,6 @@ class ArticleAPI(APIView):
         else:
             query = Article.objects.filter(pk=pk)
         serializer = ArticleSerializer(query, many=True, context={'request': request})
-        visit()
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -35,7 +33,6 @@ class ArticlesGroupAPI(APIView):
         else:
             query = ArticleGroup.objects.filter(pk=pk)
         serializer = ArticleGroupSerializer(query, many=True, context={'request': request})
-        visit()
         return Response(serializer.data, status=200)
 
 
@@ -46,7 +43,6 @@ class AdminArticleAPI(APIView):
     def get(self, request):
         query = Article.objects.filter(author=request.user.id)
         serializer = ArticleSerializer(query, many=True, context={'request': request})
-        visit()
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
@@ -77,7 +73,6 @@ class AdminGroupAPI(APIView):
     def get(self, request):
         query = ArticleGroup.objects.all()
         serializer = ArticleGroupSerializer(query, many=True, context={'request': request})
-        visit()
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):

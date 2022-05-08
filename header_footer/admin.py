@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import register
 
-from header_footer.models import Footer, SocialMedia, Menu, Logo
+from header_footer.models import Footer, SocialMedia, Menu, Logo, VisitorInfo
 
 
 @register(Footer)
@@ -22,3 +22,8 @@ class LogoAdmin(admin.ModelAdmin):
 @register(SocialMedia)
 class SocialMediaAdmin(admin.ModelAdmin):
     list_display = ('image', 'alt')
+
+
+@register(VisitorInfo)
+class VisitAdmin(admin.ModelAdmin):
+    list_display = ('ip_address', 'event_date', 'page_visited')

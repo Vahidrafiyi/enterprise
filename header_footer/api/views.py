@@ -1,14 +1,17 @@
+import datetime
+
+from django.db.models import Sum
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from enterprise.permissions import IsSuperUser
-from enterprise.utils import visit
 from header_footer.api.serializers import MenuSerializer, LogoSerializer, FooterSerializer, SocialMediaSerializer
 from header_footer.models import Logo, Footer, SocialMedia, Menu
-
-
 # ---------------------------------------USER--------------------------------------------------------------------------------- #
+from header_footer.proccessor import save_visitor_info
+
+
 class LogoAPI(APIView):
     permission_classes = (AllowAny,)
 
@@ -24,7 +27,6 @@ class MenuAPI(APIView):
     def get(self, request):
         query = Menu.objects.filter(parent__isnull=True)
         serializer = MenuSerializer(query, many=True)
-        visit()
         return Response(serializer.data, status=200)
 
 
@@ -35,6 +37,28 @@ class FooterAPI(APIView):
         query = Footer.objects.all()
         serializer = FooterSerializer(query, many=True, context={'request': request})
         return Response(serializer.data, status=200)
+
+
+class OnlineUsers(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request):
+        traffic = save_visitor_info(request)
+
+        return Response({'traffic':traffic}, status=200)
+
+
+class SiteVisitAPI(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request):
+        date = datetime.date.today()
+        today = Visit.objects.filter(date__day=date.day)[0].number
+        week = Visit.objects.filter(date__week=date.isocalendar()[1])
+        month = Visit.objects.filter(date__month=date.month)[0].number
+        year = Visit.objects.filter(date__year=date.year).aggregate(sum=Sum('number'))
+        data = {'today': today, 'week': week, 'month': month, 'year': year}
+        return Response(data, status=200)
 
 
 # ---------------------------------------ADMIN--------------------------------------------------------------------------------- #

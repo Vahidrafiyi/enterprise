@@ -1,10 +1,15 @@
 import datetime
 
-from information.models import Visit
+
+today = datetime.date.today()
 
 
-def visit():
-    today = datetime.date.today()
-    query = Visit.objects.get_or_create(date=today)
-    query[0].number += 1
-    query[0].save()
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
